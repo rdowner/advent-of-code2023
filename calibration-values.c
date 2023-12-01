@@ -7,6 +7,9 @@
 /* Prototypes */
 int get_calibration_value(char *line);
 
+const char *spelled_out[] = {
+    "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
+};
 
 int main(void)
 {
@@ -52,13 +55,25 @@ int get_calibration_value(char *line)
     char valStr[3] = { -1, -1, 0 };
 
     for(char *ptr = line; *ptr != 0; ptr++) {
+        char got = -1;
         if (isdigit(*ptr)) {
+            got = *ptr;
+        } else {
+            for(int i = 0; i < 9; i++) {
+                size_t len = strlen(spelled_out[i]);
+                if (strncmp(ptr, spelled_out[i], len) == 0) {
+                    got = '1' + i;
+                    break;
+                }
+            }
+        }
+        if (got >= 0) {
             if (valStr[0] == -1) {
                 /* set the first digit */
-                valStr[0] = *ptr;
+                valStr[0] = got;
             }
             /* set the last digit */
-            valStr[1] = *ptr;
+            valStr[1] = got;
         }
     }
 
