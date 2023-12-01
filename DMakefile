@@ -1,0 +1,17 @@
+CC=dcc
+CFLAGS= -2.0
+
+SRCS= calibration-values.c
+
+OBJS= $(SRCS:"*.c":"*.o")
+
+all: calibration-values
+
+calibration-values : calibration-values.o
+        $(CC) $(CFLAGS) $(OBJS) -o %(left)
+
+$(OBJS) : $(SRCS)
+        $(CC) $(CFLAGS) %(right) -o %(left) -c
+
+clean:
+        rm -f $(OBJS) calibration-values
