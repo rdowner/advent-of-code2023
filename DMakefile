@@ -1,14 +1,17 @@
 CC=dcc
 CFLAGS= -2.0
 
-SRCS= calibration-values.c
+SRCS= calibration-values.c common.c cube-game.c
 
 OBJS= $(SRCS:"*.c":"*.o")
 
-all: calibration-values
+all: calibration-values cube-game
 
 calibration-values : calibration-values.o
-        $(CC) $(CFLAGS) $(OBJS) -o %(left)
+        $(CC) $(CFLAGS) %(right) -o %(left)
+
+cube-game: cube-game.o common.o
+        $(CC) $(CFLAGS) %(right) -o %(left)
 
 $(OBJS) : $(SRCS)
         $(CC) $(CFLAGS) %(right) -o %(left) -c
